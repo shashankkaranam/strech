@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nourish Network</title>
+  <link rel="stylesheet" href="homepagestyle.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <img src="https://i.ibb.co/XyC1ksm/image-removebg-preview-5.png" alt="Nourish Network Logo">
+    </div>
+    <nav class="nav">
+      <ul>
+        <li><a href="homepage.html" class="active">Home</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="getinvolved.html">Get Involved</a></li>
+      </ul>
+    </nav>
+    <div class="buttons">
+      <a href="needameal.html" class="btn">Need A Meal</a>
+      <a href="feedameal.html" class="btn primary">Feed A Meal</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay">
+      <img src="https://i.ibb.co/CP99QkD/bb5ea914-4c21-4623-a375-b17906f12bd2.jpg" alt="Hero Image" class="hero-image">
+    </div>
+    <div class="hero-content">
+      <h1>Join the Fight Against Hunger Today</h1>
+      <p>
+        Nourish Network connects those in need with generous donors. Explore how you can make a difference by feeding a meal, needing a meal, or volunteering to deliver food.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn explore-btn">Explore</button>
+        <button class="btn get-involved-btn">Get Involved</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>How Nourish Network Connects Communities Through Food</h2>
+    <p class="subheading">
+      Nourish Network simplifies food donation and meal requests. Join us in making a difference today!
+    </p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <img src="https://i.ibb.co/XxpYfGZ/image-removebg-preview-1.png" alt="Donate Food">
+        <h3>Donate Food Easily</h3>
+        <p>Share surplus food with those in need through our user-friendly donation platform.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://i.ibb.co/LPm4K2D/image-removebg-preview-2.png" alt="Request a Meal">
+        <h3>Request a Meal</h3>
+        <p>If you’re in need, simply request a meal through our platform for quick assistance.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://i.ibb.co/xHjJ5rf/image-removebg-preview-3.png" alt="Volunteer">
+        <h3>Volunteer Your Time</h3>
+        <p>Help deliver meals to those in need by signing up as a volunteer today!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="top-donors">
+    <h2>Top Donors of the Month</h2>
+    <div class="slideshow-container">
+      <div class="slide fade">
+        <img src="https://i.ibb.co/Z1rLM8k/image-removebg-preview-4.png" alt="Donor 1">
+        <p class="caption">Generous Donor A</p>
+      </div>
+      <div class="slide fade">
+        <img src="https://i.ibb.co/sqDnC9Q/Screenshot-2024-12-18-232149.png" alt="Donor 2">
+        <p class="caption">Generous Donor B</p>
+      </div>
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="https://i.ibb.co/XyC1ksm/image-removebg-preview-5.png" alt="Logo">
+    </div>
+    <nav class="footer-nav">
+      <a href="#about">About Us</a>
+      <a href="#get-involved">Get Involved</a>
+      <a href="#contact">Contact Us</a>
+      <a href="#impact">Our Impact</a>
+      <a href="#faqs">FAQs</a>
+    </nav>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <p>© 2024 Nourish Network. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#cookies">Cookie Settings</a>
+      </div>
+    </div>
+    <div class="newsletter">
+      <p>Stay Updated!</p>
+      <input type="email" id="emailInput" placeholder="Enter your email">
+      <button class="btn subscribe-btn" onclick="subscribeUser()">Subscribe</button>
+    </div>
+    
+    <script>
+      async function subscribeUser() {
+        const email = document.getElementById("emailInput").value.trim();
+    
+        if (!email) {
+          alert("Please enter a valid email!");
+          return;
+        }
+    
+        try {
+          const response = await fetch("http://localhost:5000/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+          });
+    
+          const data = await response.json();
+    
+          if (response.ok) {
+            alert(data.message);
+            document.getElementById("emailInput").value = "";
+          } else {
+            alert("Error: " + data.error);
+          }
+        } catch (error) {
+          alert("Failed to connect to the server. Make sure it's running.");
+          console.error("Error:", error);
+        }
+      }
+    </script>
+    
+  </footer>
+</body>
+</html>

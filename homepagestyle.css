@@ -1,0 +1,210 @@
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #FEF3E2;
+  color: #333;
+}
+
+/* Button Styles */
+.buttons .btn, .hero-buttons .btn, .subscribe-btn, .feature-card .btn {
+  background: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid black;
+  display: inline-block;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.buttons .btn:hover, .hero-buttons .btn:hover, .subscribe-btn:hover, .feature-card .btn:hover {
+  background-color: #000000;
+  color: white;
+  border-color: #FA812F;
+  transition: 0.3s;
+}
+
+/* Specific Button Hover Effects */
+.buttons .btn.feed-meal:hover, .buttons .btn.need-meal:hover {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #FA812F;
+  color: white;
+}
+
+.header .logo img {
+  height: 50px;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.nav ul li {
+  margin: 0 15px;
+}
+
+.nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nav ul li a.active {
+  border-bottom: 2px solid white;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.hero-overlay {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Features Section */
+.features {
+  padding: 50px;
+  text-align: center;
+}
+
+.feature-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.feature-card:hover {
+  transform: scale(1.1);
+}
+
+.feature-card img {
+  height: 80px;
+}
+
+.feature-card .btn {
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+}
+
+.feature-card .btn[href] {
+  cursor: pointer;
+}
+
+/* Achievements Section */
+.achievements {
+  text-align: center;
+  padding: 50px;
+  background: #FA812F;
+  color: white;
+}
+
+.achievements-gallery img {
+  width: 300px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+/* Top Donors Section */
+.top-donors {
+  padding: 50px;
+  background: #FEF3E2;
+  text-align: center;
+}
+
+.slideshow-container {
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+}
+
+.slide {
+  display: none;
+}
+
+.slide img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Footer */
+.footer {
+  background: #333;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.footer-nav a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.footer-links a {
+  color: white;
+  margin: 0 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.newsletter input {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+
+.subscribe-btn {
+  padding: 10px 15px;
+  background: white;
+  border: 2px solid black;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
