@@ -69,20 +69,26 @@
   </section>
 
   <section class="top-donors">
-    <h2>Top Donors of the Month</h2>
-    <div class="slideshow-container">
-      <div class="slide fade">
+  <h2>Top Donors of the Month</h2>
+  <div class="slideshow-container">
+    <div class="slides-wrapper">
+      <div class="slide">
         <img src="https://i.ibb.co/Z1rLM8k/image-removebg-preview-4.png" alt="Donor 1">
         <p class="caption">Generous Donor A</p>
       </div>
-      <div class="slide fade">
+      <div class="slide">
         <img src="https://i.ibb.co/sqDnC9Q/Screenshot-2024-12-18-232149.png" alt="Donor 2">
         <p class="caption">Generous Donor B</p>
       </div>
-      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      <div class="slide">
+        <img src="https://i.ibb.co/3CkD8Ht/donor-3.png" alt="Donor 3">
+        <p class="caption">Generous Donor C</p>
+      </div>
     </div>
-  </section>
+   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+</section>
 
   <footer class="footer">
     <div class="footer-logo">
@@ -142,5 +148,30 @@
     </script>
     
   </footer>
+<script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function showSlides(n) {
+    let slides = document.getElementsByClassName("slide");
+    let totalSlides = slides.length;
+    
+    if (n > totalSlides) { slideIndex = 1; }
+    if (n < 1) { slideIndex = totalSlides; }
+
+    for (let i = 0; i < totalSlides; i++) {
+      slides[i].style.opacity = "0.3"; // Make all slides slightly visible
+      slides[i].style.transform = "scale(0.85)";
+    }
+
+    slides[slideIndex - 1].style.opacity = "1"; // Make current slide fully visible
+    slides[slideIndex - 1].style.transform = "scale(1)";
+  }
+</script>
+
 </body>
 </html> //update
