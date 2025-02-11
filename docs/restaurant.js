@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // MongoDB connection
 const mongoUri = process.env.MONGO_URI || 'mongodb+srv://nourishnetworkk:CRSrinidhi339@nourishnetworktrial.nr6w9.mongodb.net/donationsDB?retryWrites=true&w=majority&appName=Nourishnetworktrial';
 
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUri, { dbName: "donationsDB",useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('✅ Connected to MongoDB'))
     .catch((err) => console.error('❌ MongoDB connection error:', err));
 
