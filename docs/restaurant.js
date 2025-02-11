@@ -15,8 +15,12 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: allowedOrigins,
-    methods: ['GET', 'POST'],
+    origin: [
+        'https://shashankkaranam.github.io',  // ✅ GitHub Pages URL
+        'http://localhost:3000', // ✅ Allow local testing
+        'https://strech-restaurant.onrender.com' // ✅ Backend on Render
+    ],
+    methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
 
