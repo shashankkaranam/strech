@@ -58,7 +58,7 @@ app.get('/thank-you', (req, res) => {
 });
 
 // Handle form submission
-app.post('/donate', async (req, res) => {
+app.post('/submit', async (req, res) => {
     try {
         const newDonation = new RestaurantDonation({
             restaurantName: req.body['restaurant-name'],
@@ -77,16 +77,14 @@ app.post('/donate', async (req, res) => {
         });
 
         await newDonation.save();
-
         console.log('✅ Donation saved:', newDonation);
-
-        // Redirect to the Thank You page on success
         res.redirect('/thank-you');
     } catch (error) {
         console.error('❌ Error saving donation:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
