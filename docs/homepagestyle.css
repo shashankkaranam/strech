@@ -40,9 +40,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
-  background: #FA812F;
-  color: white;
+  padding: 15px 20px;
+  background-color: #f7941d;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .header .logo img {
@@ -161,23 +163,63 @@ body {
   position: relative;
   max-width: 600px;
   margin: auto;
+  overflow: hidden;
+}
+
+.slides-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .slide {
-  display: none;
+  width: 100%;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  text-align: center;
 }
 
 .slide img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
+.caption {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Navigation Arrows */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+  transition: 0.3s;
+  user-select: none;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.prev:hover, .next:hover {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+}
 /* Footer */
 .footer {
-  background: #333;
-  color: white;
-  padding: 30px 20px;
+  background-color: #f68b1e; /* Orange color matching the header */
+  color: #000;
   text-align: center;
+  padding: 20px 10px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .footer-nav a {
@@ -194,16 +236,20 @@ body {
   cursor: pointer;
 }
 
+.footer-logo img {
+  height: 60px; /* Reduced size for smaller appearance */
+}
+
 .newsletter input {
   padding: 8px;
-  border-radius: 5px;
+  border-radius: 3px;
   border: none;
 }
 
 .subscribe-btn {
-  padding: 10px 15px;
+  padding: 8px 15px;
   background: white;
-  border: 2px solid black;
+  border: 1px solid black;
   color: black;
   font-weight: bold;
   cursor: pointer;
