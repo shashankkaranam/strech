@@ -48,8 +48,9 @@ const RestaurantDonation = mongoose.model('RestaurantDonation', restaurantDonati
 
 // Serve the HTML form on the root path
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'restaurant-donation-form.html'));
+    res.sendFile(path.join(__dirname, 'restaurant-donation-form.html'));
 });
+
 
 // Serve the "Thank You" page
 app.get('/thank-you', (req, res) => {
