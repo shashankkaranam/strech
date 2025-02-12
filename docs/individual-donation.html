@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nourish Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #ff9800;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #f4f4f4;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+
+        .card label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .card input, .card select, .card textarea, .card button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .card textarea {
+            resize: none;
+        }
+
+        .card button {
+            background-color: #6d4c41;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background-color: #5d4037;
+        }
+
+        footer {
+            background-color: #ff9800;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        footer img {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+        }
+
+        .need-a-meal-button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .need-a-meal-button:hover {
+            background-color: #333;
+        }
+
+        .feed-a-meal-button {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .feed-a-meal-button:hover {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.ibb.co/XyC1ksm/image-removebg-preview-5.png" alt="Nourish Network Logo">
+        <nav>
+            <ul>
+                <li><a href="#">Home Page</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Get Involved</a></li>
+            </ul>
+        </nav>
+        <div>
+            <button class="need-a-meal-button">Need a Meal</button>
+            <button class="feed-a-meal-button">Feed a Meal</button>
+        </div>
+    </header>
+
+    <form class="main-container" action="/submit" method="POST">
+        <div class="card">
+            <h2>Let’s begin with your contact information</h2>
+            <p>Please provide your details to proceed.</p>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+        </div>
+
+        <div class="card">
+            <h2>What items would you like to donate?</h2>
+            <p>Please list the food items and quantities.</p>
+            <label for="donationType">Donation Type</label>
+            <select id="donationType" name="donationType" multiple size="4" required>
+                <option value="Canned Goods">Canned Goods</option>
+                <option value="Fresh Produce">Fresh Produce</option>
+                <option value="Packaged Foods">Packaged Foods</option>
+                <option value="Other">Other</option>
+            </select>
+            <label for="quantity">Quantity Needed</label>
+            <select id="quantity" name="quantity" required>
+                <option value="">Enter amount...</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+            </select>
+            <label for="notes">Additional Notes</label>
+            <textarea id="notes" name="notes" rows="4" placeholder="Enter additional details"></textarea>
+        </div>
+
+        <div class="card">
+            <h2>Let’s confirm your contact details</h2>
+            <p>Ensure your information is accurate before proceeding.</p>
+            <label for="fullname">What is your full name?</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Full name" required>
+            <label>How many items are you donating?</label>
+            <div style="display: flex; gap: 10px;">
+                <button type="button" onclick="selectDonationAmount('Just a few')">Just a few</button>
+                <button type="button" onclick="selectDonationAmount('10-20')">10-20</button>
+                <button type="button" onclick="selectDonationAmount('21-50')">21-50</button>
+                <button type="button" onclick="selectDonationAmount('51-100')">51-100</button>
+                <button type="button" onclick="selectDonationAmount('100+')">100+</button>
+            </div>
+            <input type="hidden" id="donationAmount" name="donationAmount">
+            <label for="location">Your Location</label>
+            <input type="text" id="location" name="location" placeholder="Location" required>
+        </div>
+
+        <div class="card">
+            <h2>Confirm your availability for pickup</h2>
+            <p>Let us know when you are available.</p>
+            <label for="city">City</label>
+            <select id="city" name="city" required>
+                <option value="">Select city...</option>
+                <option value="New York">New York</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Chicago">Chicago</option>
+                <option value="Houston">Houston</option>
+                <option value="Phoenix">Phoenix</option>
+            </select>
+            <label for="pickup-date">Preferred pickup date</label>
+            <input type="date" id="pickup-date" name="pickup-date" required>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+            <button type="reset">Back</button>
+            <button type="submit">Submit Donation</button>
+        </div>
+    </form>
+
+    <footer>
+        <img src="https://i.ibb.co/XyC1ksm/image-removebg-preview-5.png" alt="Nourish Network Logo">
+        <p>Thank You for Your Support!</p>
+        <p>Your donation makes a real difference in our community.</p>
+    </footer>
+
+    <script>
+        function selectDonationAmount(amount) {
+            document.getElementById('donationAmount').value = amount;
+        }
+    </script>
+</body>
+</html>
