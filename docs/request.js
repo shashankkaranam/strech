@@ -57,13 +57,13 @@ app.get('/thank-you', (req, res) => {
 // ✅ Handle form submission
 app.post('/submit', async (req, res) => {
     try {
-        let donationDate = req.body.donationDate;
+        let Date = req.body.Date;
 
         // ✅ If donationDate is missing or invalid, set the current date
-        if (!donationDate || isNaN(Date.parse(donationDate))) {
-            donationDate = new Date();
+        if (!Date || isNaN(Date.parse(Date))) {
+            Date = new Date();
         } else {
-            donationDate = new Date(donationDate);
+            Date = new Date(Date);
         }
 
         const newRequest = new NGORequest({
@@ -73,13 +73,13 @@ app.post('/submit', async (req, res) => {
             address: req.body.address,
             foodQuantity: req.body.foodQuantity,
             travel: req.body.travel,
-            donationDate: donationDate, // ✅ Store Date Properly
+            Date: Date, // ✅ Store Date Properly
             message: req.body.message
         });
 
         await newRequest.save();
 
-        console.log("✅ Request Saved with Date:", donationDate);
+        console.log("✅ Request Saved with Date:", Date);
 
         // ✅ Redirect to thank-you page after submission
         res.redirect('/thank-you');
