@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -27,7 +29,7 @@ const donationSchema = new mongoose.Schema({
     donationSize: String,
     foodType: String,
     shelfLife: String,
-    donationDate: { type: Date, required: true }, // ✅ Ensure date consistency
+    donationDate: { type: Date, required: true },
     willingToDeliver: String
 }, { collection: 'restaurantDonations' });
 
@@ -36,14 +38,14 @@ const ngoRequestSchema = new mongoose.Schema({
     foodQuantity: String,
     foodType: String,
     travel: String,
-    date: { type: Date, required: true } // ✅ Ensure correct date storage
+    Date: { type: Date, required: true }
 }, { collection: 'ngoRequests' });
 
 const volunteerSchema = new mongoose.Schema({
     firstName: String,
     vehicleType: String,
     vehicleCapacity: Number,
-    availableDate: { type: Date, required: true } // ✅ Ensure correct date storage
+    availableDate: { type: Date, required: true }
 }, { collection: 'volunteerDetails' });
 
 const directAssignmentSchema = new mongoose.Schema({
@@ -68,8 +70,26 @@ const Volunteer = volunteersDB.model('Volunteer', volunteerSchema);
 const DirectAssignment = derivedDB.model('DirectAssignment', directAssignmentSchema);
 const VolunteerAssignment = derivedDB.model('VolunteerAssignment', volunteerAssignmentSchema);
 
+// NGO Request Submission Endpoint
+app.post('/submit', async (req, res) => {
+    try {
+        const newRequest = new NGORequest({
+            ngoName: req.body.ngoName,
+            foodQuantity: req.body.foodQuantity,
+            foodType: req.body.foodType,
+            travel: req.body.travel,
+            Date: req.body.Date ? new Date(req.body.Date) : new Date()
+        });
+        await newRequest.save();
+        res.json({ message: "Request submitted successfully!" });
+    } catch (error) {
+        console.error('❌ Error saving request:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 async function runMatchingProcess() {
-    console.log('🔄 Running Matching Process due to Database Change...');
+    console.log('🔄 Running Matching Process...');
     try {
         const restaurantDonations = await RestaurantDonation.find({});
         const requests = await NGORequest.find({});
@@ -80,93 +100,69 @@ async function runMatchingProcess() {
         const volunteerAssignments = [];
         let usedVolunteers = new Set();
 
-        // Match restaurant donations with requests
         for (const donation of restaurantDonations) {
             for (const request of requests) {
-                // ✅ Convert both dates to the same format (YYYY-MM-DD)
-                const donationDate = donation.donationDate ? new Date(donation.donationDate).toISOString().split('T')[0] : null;
-                const requestDate = request.donationDate ? new Date(request.donationDate).toISOString().split('T')[0] : null;
+                const donationDate = donation.donationDate?.toISOString().split('T')[0];
+                const requestDate = request.Date?.toISOString().split('T')[0];
 
-                // ✅ Only match if dates are available and they match
                 if (donationDate && requestDate && donationDate === requestDate) {
-                    console.log(`✅ Date Match Found: ${donationDate} == ${requestDate}`);
-
                     if (donation.willingToDeliver === 'yes' || request.travel === 'Yes') {
-                        console.log('✅ Direct Assignment Eligible');
-                        directAssignments.push({ donorDetails: donation, requestDetails: request });
+                        directAssignments.push({ 
+                            donorDetails: donation,
+                            requestDetails: request,
+                            date: donationDate
+                        });
                     } else {
-                        console.log('🔄 Volunteer Assignment Required');
-
                         let assignedVolunteer = null;
                         for (const volunteer of volunteers) {
-                            const volunteerDate = volunteer.availableDate ? new Date(volunteer.availableDate).toISOString().split('T')[0] : null;
-
-                            if (
-                                volunteerDate &&
-                                volunteerDate === donationDate &&
-                                !usedVolunteers.has(volunteer._id)
-                            ) {
+                            const volunteerDate = volunteer.availableDate?.toISOString().split('T')[0];
+                            if (volunteerDate === donationDate && !usedVolunteers.has(volunteer._id)) {
                                 assignedVolunteer = volunteer;
                                 usedVolunteers.add(volunteer._id);
                                 break;
                             }
                         }
-
                         if (assignedVolunteer) {
                             volunteerAssignments.push({
                                 donorDetails: donation,
                                 requestDetails: request,
-                                volunteerDetails: assignedVolunteer
+                                volunteerDetails: assignedVolunteer,
+                                date: donationDate
                             });
-                        } else {
-                            console.log('❌ No Available Volunteers for this Assignment');
                         }
                     }
-                } else {
-                    console.log(`❌ No Date Match: Donation Date = ${donationDate}, Request Date = ${requestDate}`);
                 }
             }
         }
 
-        // ✅ Save direct assignments and remove matched donations & requests
         if (directAssignments.length > 0) {
             await DirectAssignment.insertMany(directAssignments);
-            console.log(`✅ Direct Assignments Saved: ${directAssignments.length}`);
-
-            for (const match of directAssignments) {
-                await RestaurantDonation.deleteOne({ _id: match.donorDetails._id });
-                await NGORequest.deleteOne({ _id: match.requestDetails._id });
-            }
+            await RestaurantDonation.deleteMany({ _id: { $in: directAssignments.map(d => d.donorDetails._id) } });
+            await NGORequest.deleteMany({ _id: { $in: directAssignments.map(d => d.requestDetails._id) } });
         }
 
-        // ✅ Save volunteer assignments and remove matched donations & requests
         if (volunteerAssignments.length > 0) {
             await VolunteerAssignment.insertMany(volunteerAssignments);
-            console.log(`✅ Volunteer Assignments Saved: ${volunteerAssignments.length}`);
-
-            for (const match of volunteerAssignments) {
-                await RestaurantDonation.deleteOne({ _id: match.donorDetails._id });
-                await NGORequest.deleteOne({ _id: match.requestDetails._id });
-            }
+            await RestaurantDonation.deleteMany({ _id: { $in: volunteerAssignments.map(d => d.donorDetails._id) } });
+            await NGORequest.deleteMany({ _id: { $in: volunteerAssignments.map(d => d.requestDetails._id) } });
         }
 
-        console.log('✅ Matching Process Completed Successfully.');
+        console.log('✅ Matching Process Completed');
     } catch (error) {
-        console.error('❌ Error in Matching Process:', error);
+        console.error('❌ Matching Error:', error);
     }
 }
 
-
-// 🛠 **Listen for New Entries in Donations & Requests Collections**
+// Database Change Listeners
 donationsDB.once('open', () => {
-    const donationStream = donationsDB.collection('restaurantDonations').watch();
-    donationStream.on('change', () => {
-        runMatchingProcess();
-    });
+    donationsDB.collection('restaurantDonations').watch().on('change', runMatchingProcess);
 });
 
-// 🛠 Fix Port Binding for Render
+requestsDB.once('open', () => {
+    requestsDB.collection('ngoRequests').watch().on('change', runMatchingProcess);
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`✅ Server running on http://localhost:${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
 });
