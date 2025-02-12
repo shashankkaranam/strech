@@ -27,8 +27,8 @@ mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .then(() => console.log('✅ Connected to MongoDB'))
+    .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // ✅ Define schema and model
 const ngoRequestSchema = new mongoose.Schema({
@@ -38,7 +38,7 @@ const ngoRequestSchema = new mongoose.Schema({
     address: String,
     foodQuantity: String,
     travel: String,
-    donationDate: Date,
+    donationDate: { type: Date, required: true }, // ✅ Ensure Date Field is Required
     message: String
 }, { collection: 'ngoRequests' });
 
@@ -49,14 +49,23 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'needameal.html'));
 });
 
-// ✅ Serve the "Thank You" page (Moved Outside the POST Route)
+// ✅ Serve the "Thank You" page
 app.get('/thank-you', (req, res) => {
-    res.sendFile(path.join(__dirname, 'thankyou.html')); // ✅ Ensure correct path
+    res.sendFile(path.join(__dirname, 'thankyou.html'));
 });
 
 // ✅ Handle form submission
 app.post('/submit', async (req, res) => {
     try {
+        let donationDate = req.body.donationDate;
+
+        // ✅ If donationDate is missing or invalid, set the current date
+        if (!donationDate || isNaN(Date.parse(donationDate))) {
+            donationDate = new Date();
+        } else {
+            donationDate = new Date(donationDate);
+        }
+
         const newRequest = new NGORequest({
             ngoName: req.body.ngoName,
             certNumber: req.body.certNumber,
@@ -64,16 +73,18 @@ app.post('/submit', async (req, res) => {
             address: req.body.address,
             foodQuantity: req.body.foodQuantity,
             travel: req.body.travel,
-            donationDate: req.body.donationDate ? new Date(req.body.donationDate) : new Date(), // ✅ Convert string to Date
+            donationDate: donationDate, // ✅ Store Date Properly
             message: req.body.message
         });
 
         await newRequest.save();
 
+        console.log("✅ Request Saved with Date:", donationDate);
+
         // ✅ Redirect to thank-you page after submission
         res.redirect('/thank-you');
     } catch (error) {
-        console.error('Error saving request:', error);
+        console.error('❌ Error saving request:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -83,5 +94,6 @@ const PORT = process.env.PORT || 3000;
 const HOST = process.env.RENDER ? '0.0.0.0' : 'localhost';
 
 app.listen(PORT, HOST, () => {
-    console.log(`Server running on ${process.env.RENDER ? 'Render' : 'Localhost'} at port ${PORT}`);
+    console.log(`✅ Server running on ${process.env.RENDER ? 'Render' : 'Localhost'} at port ${PORT}`);
 });
+
