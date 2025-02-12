@@ -94,11 +94,13 @@ async function runMatchingProcess() {
         // Match restaurant donations with requests
         for (const donation of restaurantDonations) {
             for (const request of requests) {
-                if (
-                    donation.donationDate.toISOString() === request.date.toISOString() &&
-                    donation.donationSize === request.foodQuantity &&
-                    donation.foodType === request.foodType  // ✅ Ensures food type matches
-                ) {
+                const donationDate = donation.donationDate ? new Date(donation.donationDate).toISOString().split('T')[0] : null;
+                const requestDate = request.date ? new Date(request.date).toISOString().split('T')[0] : null;
+
+                // ✅ Only match if dates are available and they match
+                if (donationDate && requestDate && donationDate === requestDate) {
+                    console.log(`✅ Date Match Found: ${donationDate} == ${requestDate}`);
+
                     if (donation.willingToDeliver === 'yes' || request.travel === 'Yes') {
                         console.log('✅ Direct Assignment Eligible');
                         directAssignments.push({ donorDetails: donation, requestDetails: request });
@@ -107,14 +109,12 @@ async function runMatchingProcess() {
 
                         let assignedVolunteer = null;
                         for (const volunteer of volunteers) {
+                            const volunteerDate = volunteer.availableDate ? new Date(volunteer.availableDate).toISOString().split('T')[0] : null;
+
                             if (
-                                volunteer.availableDate.toISOString() === donation.donationDate.toISOString() &&
-                                !usedVolunteers.has(volunteer._id) &&  // ✅ Prevents double assignment
-                                (
-                                    (donation.donationSize === 'small' && volunteer.vehicleType === 'bike') ||
-                                    (donation.donationSize === 'medium' && volunteer.vehicleType === 'car') ||
-                                    (donation.donationSize === 'large' && volunteer.vehicleType === 'truck')
-                                )
+                                volunteerDate &&
+                                volunteerDate === donationDate &&
+                                !usedVolunteers.has(volunteer._id) // ✅ Prevents double assignment
                             ) {
                                 assignedVolunteer = volunteer;
                                 usedVolunteers.add(volunteer._id); // ✅ Marks volunteer as used
@@ -132,6 +132,8 @@ async function runMatchingProcess() {
                             console.log('❌ No Available Volunteers for this Assignment');
                         }
                     }
+                } else {
+                    console.log(`❌ No Date Match: Donation Date = ${donationDate}, Request Date = ${requestDate}`);
                 }
             }
         }
@@ -177,5 +179,3 @@ const PORT = process.env.PORT || 3000;  // ✅ Default to 3000 if PORT is not se
 app.listen(PORT, () => {
     console.log(`✅ Server running on http://localhost:${PORT}`);
 });
-
-
