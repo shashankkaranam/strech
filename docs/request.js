@@ -8,7 +8,7 @@ const app = express();
 
 // ✅ Enable CORS for frontend access
 app.use(cors({
-    origin: ["https://shashankkaranam.github.io/strech", "https://your-backend-url.onrender.com"],
+    origin: ["https://shashankkaranam.github.io/strech", "https://strech-ngorequest.onrender.com"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
