@@ -1,125 +1,367 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Feed a Meal - Restaurant</title>
+
     <link rel="stylesheet" href="feed-a-meal-rest.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
-        /* Inline styles for now */
+
         body, html {
+
             margin: 0;
+
             padding: 0;
+
             font-family: 'Lora', serif;
+
             background-color: #f9f6f1;
+
             color: #4e342e;
+
         }
+
+
 
         .header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             background-color: #F7931E;
+
             padding: 10px 20px;
+
         }
+
+
+
+        .header .logo {
+
+            margin-right: auto;
+
+        }
+
+
 
         .header .logo img {
+
             max-height: 50px;
+
         }
+
+
 
         .header .nav {
+
             display: flex;
+
+            justify-content: center;
+
+            flex-grow: 1;
+
             gap: 20px;
-            align-items: center;
+
         }
+
+
 
         .header .nav a {
+
             text-decoration: none;
+
             color: #4e342e;
+
             font-weight: bold;
+
             padding: 5px 10px;
+
             transition: background-color 0.3s;
+
         }
 
-        .header .nav a.button {
-            background-color: #000000;
-            color: white;
+
+
+        .header .buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+
+        .header .buttons a {
+
+            text-decoration: none;
+
+            padding: 5px 10px;
+
+            border: 2px solid #4e342e;
+
             border-radius: 5px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            color: #4e342e;
+
         }
 
-        .header .nav a.button:hover {
-            background-color: #d14d36;
+
+
+        .header .buttons a.primary {
+
+            background-color: black;
+
+            color: white;
+
+            border: none;
+
         }
+
+
+
+        .header .buttons a:hover {
+
+            background-color: #d14d36;
+
+            color: white;
+
+        }
+
+
 
         .form-container {
+
             max-width: 600px;
+
             margin: 40px auto;
+
             background: #fff;
+
             padding: 20px 30px;
+
             border: 1px solid #ddd;
+
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
             border-radius: 8px;
+
         }
+
+
 
         .form-heading {
+
             text-align: center;
+
             margin-bottom: 20px;
+
             color: #4e342e;
+
         }
+
+
 
         .form label {
+
             display: block;
+
             margin: 10px 0 5px;
+
             font-weight: bold;
+
         }
 
-        .form input {
+
+
+        .form input,
+
+        .form select {
+
             width: 100%;
+
             padding: 10px;
+
             border: 1px solid #ccc;
+
             border-radius: 5px;
+
             font-size: 14px;
+
         }
+
+
 
         .form-navigation {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             margin-top: 20px;
+
         }
+
+
 
         .form-buttons button {
+
             background-color: #4e342e;
+
             color: white;
+
             padding: 10px 20px;
+
             border: none;
+
             border-radius: 5px;
+
             cursor: pointer;
+
         }
+
+
 
         .form-buttons button:hover {
+
             background-color: #f4a261;
+
         }
+
+
 
         footer {
-            background-color: #4e342e;
+
+            background-color: #F7931E;
+
             padding: 20px;
+
             text-align: center;
-            color: white;
+
+            color: black;
+
         }
 
-        footer a {
-            color: white;
+
+
+        footer .footer-top {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            padding: 10px 20px;
+
+        }
+
+
+
+        footer .footer-top img {
+
+            height: 40px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        footer .footer-top nav {
+
+            margin-top: 10px;
+
+            display: flex;
+
+            gap: 20px;
+
+        }
+
+
+
+        footer .footer-top nav a {
+
             text-decoration: none;
-            margin: 0 10px;
+
+            color: black;
+
+            font-weight: 500;
+
         }
 
-        footer a:hover {
-            text-decoration: underline;
+
+
+        footer .footer-divider {
+
+            width: 90%;
+
+            height: 1px;
+
+            background-color: black;
+
+            margin: 10px auto;
+
         }
+
+
+
+        footer .footer-bottom {
+
+            text-align: center;
+
+        }
+
+
+
+        footer .footer-links {
+
+            margin-top: 10px;
+
+        }
+
+
+
+        footer .footer-links a {
+
+            margin: 0 10px;
+
+            text-decoration: none;
+
+            color: black;
+
+        }
+
+
+
+        footer .footer-links a:hover {
+
+            text-decoration: underline;
+
+        }
+
     </style>
+
 </head>
+
 <body>
     <!-- Header Section -->
     <header class="header">
