@@ -57,13 +57,13 @@ app.get('/thank-you', (req, res) => {
 // ✅ Handle form submission
 app.post('/submit', async (req, res) => {
     try {
-        let Date = req.body.Date;
+        let donationDate = req.body.donationDate;
 
         // ✅ If donationDate is missing or invalid, set the current date
-        if (!Date || isNaN(Date.parse(Date))) {
-            Date = new Date();
+        if (!donationDate || isNaN(Date.parse(donationDate))) {
+            donationDate = new Date();
         } else {
-            Date = new Date(Date);
+            donationDate = new Date(donationDate);
         }
 
         const newRequest = new NGORequest({
@@ -73,13 +73,13 @@ app.post('/submit', async (req, res) => {
             address: req.body.address,
             foodQuantity: req.body.foodQuantity,
             travel: req.body.travel,
-            Date: Date, // ✅ Store Date Properly
+            donationDate: donationDate, // ✅ Store Date Properly
             message: req.body.message
         });
 
         await newRequest.save();
 
-        console.log("✅ Request Saved with Date:", Date);
+        console.log("✅ Request Saved with Date:", donationDate);
 
         // ✅ Redirect to thank-you page after submission
         res.redirect('/thank-you');
@@ -96,4 +96,3 @@ const HOST = process.env.RENDER ? '0.0.0.0' : 'localhost';
 app.listen(PORT, HOST, () => {
     console.log(`✅ Server running on ${process.env.RENDER ? 'Render' : 'Localhost'} at port ${PORT}`);
 });
-
