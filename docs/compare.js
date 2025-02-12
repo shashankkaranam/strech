@@ -172,3 +172,10 @@ donationsDB.once('open', () => {
     });
 }); // ✅ Ensure this closing bracket is present!
 
+// 🛠 Fix Port Binding for Render
+const PORT = process.env.PORT || 3000;  // ✅ Default to 3000 if PORT is not set
+app.listen(PORT, () => {
+    console.log(`✅ Server running on http://localhost:${PORT}`);
+});
+
+
