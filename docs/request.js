@@ -38,6 +38,7 @@ const ngoRequestSchema = new mongoose.Schema({
     address: String,
     foodQuantity: String,
     travel: String,
+    donationDate: Date,
     message: String
 }, { collection: 'ngoRequests' });
 
@@ -63,6 +64,7 @@ app.post('/submit', async (req, res) => {
             address: req.body.address,
             foodQuantity: req.body.foodQuantity,
             travel: req.body.travel,
+            donationDate: req.body.donationDate ? new Date(req.body.donationDate) : new Date(), // ✅ Convert string to Date
             message: req.body.message
         });
 
