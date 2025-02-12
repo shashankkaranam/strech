@@ -64,7 +64,7 @@ app.post('/submit', async (req, res) => {
         await newRequest.save();
        
         app.get('/thank-you', (req, res) => {
-    res.sendFile(path.join(__dirname, 'docs', 'thankyou.html')); // ✅ Adjust the folder if needed
+    res.sendFile(path.join(__dirname,  'thankyou.html')); // ✅ Adjust the folder if needed
 });
 // Redirect to thank-you page
     } catch (error) {
