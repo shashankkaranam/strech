@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background-color: #f9f9f9; }
+        header { background-color: #ff9800; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .main-container { max-width: 800px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .main-container h2 { font-family: 'Playfair Display', serif; margin-bottom: 10px; }
+        .main-container input, .main-container select, .main-container textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .main-container button { background-color: #6d4c41; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://i.ibb.co/XyC1ksm/image-removebg-preview-5.png" alt="Nourish Network Logo">
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="getinvolved.html">Get Involved</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Volunteer Form -->
+<div class="main-container">
+    <h2>Volunteer Form</h2>
+    <p>Join us in making a difference.</p>
+    <form action="https://strech-volunteer.onrender.com/submit" method="POST">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" required>
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="pincode">Pincode</label>
+        <input type="text" id="pincode" name="pincode" required>
+
+        <label for="experience">Experience</label>
+        <textarea id="experience" name="experience"></textarea>
+
+        <label for="availableDate">Availability Date</label>
+        <input type="date" id="availableDate" name="availableDate" required>
+
+        <label><input type="checkbox" name="terms" required> I agree to Terms</label>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<footer>© 2024 Nourish Network. All rights reserved.</footer>
+
+</body>
+</html>
