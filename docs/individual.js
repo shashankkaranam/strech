@@ -7,6 +7,15 @@ const path = require('path');
 require('dotenv').config();
 
 
+const app = express();  // ✅ Make sure this comes before using app.use()
+
+// Middleware for parsing form data
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+
 
 // Middleware for parsing form data
 app.use(express.urlencoded({ extended: true }));
