@@ -62,7 +62,11 @@ app.post('/submit', async (req, res) => {
         });
 
         await newRequest.save();
-        res.redirect('/thank-you');  // Redirect to thank-you page
+       
+        app.get('/thank-you', (req, res) => {
+    res.sendFile(path.join(__dirname, 'docs', 'thankyou.html')); // ✅ Adjust the folder if needed
+});
+// Redirect to thank-you page
     } catch (error) {
         console.error('Error saving request:', error);
         res.status(500).send('Internal Server Error');
