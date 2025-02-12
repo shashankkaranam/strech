@@ -8,7 +8,8 @@ require('dotenv').config();
 
 const cors = require('cors');
 app.use(cors({
-    origin: ["https://your-github-hosted-site.com", "https://your-backend.onrender.com"],
+    origin: ["https://shashankkaranam.github.io/strech/", "https://strech-individualdonation.onrender.com
+"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
