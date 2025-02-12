@@ -45,7 +45,7 @@ const NGORequest = mongoose.model('NGORequest', ngoRequestSchema);
 
 // ✅ Serve the form
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'needameal.html'));
+    res.sendFile(path.join(__dirname, 'docs', 'needameal.html'));
 });
 
 // ✅ Handle form submission
