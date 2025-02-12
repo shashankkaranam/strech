@@ -54,7 +54,8 @@ const restaurantDonationSchema = new mongoose.Schema(
         gstNumber: String,
         foodSafetyNumber: String,
         websiteLink: String,
-        willingToDeliver: String
+        willingToDeliver: String,
+        donationDate: Date,
     },
     { collection: 'restaurantDonations' } // Explicitly set the collection name
 );
@@ -87,7 +88,8 @@ app.post('/submit', async (req, res) => {
             gstNumber: req.body['gst-number'],
             foodSafetyNumber: req.body['food-safety-number'],
             websiteLink: req.body['website-link'],
-            willingToDeliver: req.body['willing-to-deliver']
+            willingToDeliver: req.body['willing-to-deliver'],
+            donationDate: req.body.donationDate ? new Date(req.body.donationDate) : new Date(), // ✅ Convert string to Date
         });
 
         await newDonation.save();
