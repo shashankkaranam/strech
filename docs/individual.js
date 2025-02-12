@@ -1,15 +1,15 @@
 // Import dependencies
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path');
 
 require('dotenv').config();
 
 
-const cors = require('cors');
+
 app.use(cors({
-    origin: ["https://shashankkaranam.github.io/strech/", "https://strech-individualdonation.onrender.com
-"],
+    origin: ["https://shashankkaranam.github.io/strech/", "https://strech-individualdonation.onrender.com"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
