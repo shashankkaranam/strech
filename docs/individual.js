@@ -5,8 +5,13 @@ const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
 
-const app = express();
-app.use(cors());
+
+const cors = require('cors');
+app.use(cors({
+    origin: ["https://your-github-hosted-site.com", "https://your-backend.onrender.com"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+}));
 
 // Middleware for parsing form data
 app.use(express.urlencoded({ extended: true }));
