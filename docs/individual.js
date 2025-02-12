@@ -8,12 +8,6 @@ require('dotenv').config();
 
 
 
-app.use(cors({
-    origin: ["https://shashankkaranam.github.io/strech/", "https://strech-individualdonation.onrender.com"],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"]
-}));
-
 // Middleware for parsing form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
