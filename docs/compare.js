@@ -167,5 +167,8 @@ async function runMatchingProcess() {
 // 🛠 **Listen for New Entries in Donations & Requests Collections**
 donationsDB.once('open', () => {
     const donationStream = donationsDB.collection('restaurantDonations').watch();
-    donationStream.on('change', runMatchingProcess);
-}
+    donationStream.on('change', () => {
+        runMatchingProcess();
+    });
+}); // ✅ Ensure this closing bracket is present!
+
