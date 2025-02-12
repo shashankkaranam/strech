@@ -168,3 +168,4 @@ async function runMatchingProcess() {
 donationsDB.once('open', () => {
     const donationStream = donationsDB.collection('restaurantDonations').watch();
     donationStream.on('change', runMatchingProcess);
+}
