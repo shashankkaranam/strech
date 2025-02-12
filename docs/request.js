@@ -48,6 +48,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'needameal.html'));
 });
 
+// ✅ Serve the "Thank You" page (Moved Outside the POST Route)
+app.get('/thank-you', (req, res) => {
+    res.sendFile(path.join(__dirname, 'thankyou.html')); // ✅ Ensure correct path
+});
+
 // ✅ Handle form submission
 app.post('/submit', async (req, res) => {
     try {
@@ -62,11 +67,9 @@ app.post('/submit', async (req, res) => {
         });
 
         await newRequest.save();
-       
-        app.get('/thank-you', (req, res) => {
-    res.sendFile(path.join(__dirname,  'thankyou.html')); // ✅ Adjust the folder if needed
-});
-// Redirect to thank-you page
+
+        // ✅ Redirect to thank-you page after submission
+        res.redirect('/thank-you');
     } catch (error) {
         console.error('Error saving request:', error);
         res.status(500).send('Internal Server Error');
