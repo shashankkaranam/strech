@@ -68,7 +68,6 @@ const Volunteer = volunteersDB.model('Volunteer', volunteerSchema);
 const DirectAssignment = derivedDB.model('DirectAssignment', directAssignmentSchema);
 const VolunteerAssignment = derivedDB.model('VolunteerAssignment', volunteerAssignmentSchema);
 
-// Function to Run Matching Process
 async function runMatchingProcess() {
     console.log('🔄 Running Matching Process due to Database Change...');
     try {
@@ -84,10 +83,11 @@ async function runMatchingProcess() {
         // Match restaurant donations with requests
         for (const donation of restaurantDonations) {
             for (const request of requests) {
-                // ✅ Ensure dates are formatted correctly before matching
+                // ✅ Convert both dates to the same format (YYYY-MM-DD)
                 const donationDate = donation.donationDate ? new Date(donation.donationDate).toISOString().split('T')[0] : null;
-                const requestDate = request.date ? new Date(request.date).toISOString().split('T')[0] : null;
+                const requestDate = request.donationDate ? new Date(request.donationDate).toISOString().split('T')[0] : null;
 
+                // ✅ Only match if dates are available and they match
                 if (donationDate && requestDate && donationDate === requestDate) {
                     console.log(`✅ Date Match Found: ${donationDate} == ${requestDate}`);
 
@@ -101,7 +101,11 @@ async function runMatchingProcess() {
                         for (const volunteer of volunteers) {
                             const volunteerDate = volunteer.availableDate ? new Date(volunteer.availableDate).toISOString().split('T')[0] : null;
 
-                            if (volunteerDate && volunteerDate === donationDate && !usedVolunteers.has(volunteer._id)) {
+                            if (
+                                volunteerDate &&
+                                volunteerDate === donationDate &&
+                                !usedVolunteers.has(volunteer._id)
+                            ) {
                                 assignedVolunteer = volunteer;
                                 usedVolunteers.add(volunteer._id);
                                 break;
@@ -151,6 +155,7 @@ async function runMatchingProcess() {
         console.error('❌ Error in Matching Process:', error);
     }
 }
+
 
 // 🛠 **Listen for New Entries in Donations & Requests Collections**
 donationsDB.once('open', () => {
