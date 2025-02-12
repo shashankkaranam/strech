@@ -72,7 +72,7 @@ app.post('/submit', async (req, res) => {
     }
 });
 
-// Start the server on a different port
+// Start the server on a different port.
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://localhost:${PORT}`);
