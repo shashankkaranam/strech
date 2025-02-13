@@ -78,7 +78,7 @@ restaurantDB.once('open', async () => {
                     _id: "677ad59063d765c887dbdb57",
                     ngoName: "Anna Daan",
                     certNumber: "NGO12345",
-                    email: "srinidhibv.23@bmsce.ac.in",
+                    email: "srinidhibv.cs23@bmsce.ac.in",
                     address: "Bangalore",
                     foodQuantity: "medium",
                     travel: "Yes",
