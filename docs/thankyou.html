@@ -4,20 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nourish Network</title>
-    <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="thankyou.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #4A4A4A;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: #F7921E;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        header .buttons a {
+            background: black;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        /* Content Container */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            text-align: left;
+        }
+
+        /* Thank You Section */
+        .thank-you-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .thank-you-section p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Get in Touch Section */
+        .get-in-touch {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .get-in-touch div {
+            margin-bottom: 1rem;
+        }
+
+        .get-in-touch h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .get-in-touch p {
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            font-size: 1rem;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+
+        /* Building Image */
+        .building-image {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .building-image img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Footer Section */
+        .footer {
+            background-color: #F7921E; /* Match header color */
+            color: #000;
+            text-align: center;
+            padding: 20px 10px;
+            font-family: 'Roboto', sans-serif;
+            width: 100vw; /* Ensure it stretches full width */
+            margin-left: calc(-50vw + 50%); /* Offset to stretch outside the container */
+        }
+
+        .footer-logo img {
+            max-width: 100px; /* Adjust logo size */
+            margin-bottom: 10px;
+        }
+
+        .footer-nav {
+            margin: 10px 0;
+        }
+
+        .footer-nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .footer-divider {
+            border: none;
+            border-top: 1px solid #000;
+            margin: 10px auto;
+            max-width: 90%;
+        }
+
+        .footer-bottom {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <img src="https://i.ibb.co/XyC1ksm/image-removebg-preview-5.png" alt="Nourish Network Logo">
         <nav>
-            <a href="#">Home Page</a>
-            <a href="#">About Us</a>
-            <a href="#">Get Involved</a>
+            <a href="index.html">Home Page</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="getinvolved.html">Get Involved</a>
         </nav>
         <div class="buttons">
-            <a href="#">Need a Meal</a>
-            <a href="#">Feed a Meal</a>
+            <a href="needameal.html">Need a Meal</a>
+            <a href="feedameal.html">Feed a Meal</a>
         </div>
     </header>
     <div class="building-image">
@@ -44,11 +194,11 @@
                 <img src="https://i.ibb.co/XyC1ksm/image-removebg-preview-5.png" alt="Logo">
             </div>
             <nav class="footer-nav">
-                <a href="#about">About Us</a>
-                <a href="#get-involved">Get Involved</a>
+                <a href="aboutus.html">About Us</a>
+                <a href="getinvolved.html">Get Involved</a>
                 <a href="#contact">Contact Us</a>
                 <a href="#impact">Our Impact</a>
-                <a href="#faqs">FAQs</a>
+                <a href="aboutus.html">FAQs</a>
             </nav>
             <hr class="footer-divider">
             <div class="footer-bottom">
